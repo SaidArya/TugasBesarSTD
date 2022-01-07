@@ -12,7 +12,7 @@ int main() {
 
 	Event.namaEvent = "Event A";
 	Event.jenisEvent = "Indoor";
-	Event.tanggalEvent.hari = 3;
+	Event.tanggalEvent.tgl = 3;
 	Event.tanggalEvent.bulan = "Januari";
 	Event.tanggalEvent.tahun = 2022;
 	Event.quota = 1000;

@@ -8,11 +8,11 @@ typedef struct elementEvent *addressEvent;
 typedef struct elementPeserta *addressPeserta;
 
 struct tanggal {
-    int hari, tahun;
+    int tgl, tahun;
     string bulan;
 };
 struct event {
-    string namaEvent, jenisEvent;
+    string namaEvent, jenisEvent, tempatEvent;
     tanggal tanggalEvent;
     int quota, nPeserta;
 };
@@ -39,6 +39,7 @@ void createList(list &List);
 void showDataEvent(list List);
 addressEvent newElementEvent(event info);
 void insertLastEvent(list &List, addressEvent E);
+void inputEvent(list &List, event &Event, addressEvent &E);
 
 
 #endif /* EVENT_H */
