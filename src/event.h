@@ -36,11 +36,20 @@ struct list {
 };
 
 void createList(list &List);
-void showDataEvent(list List);
+void showDataEventAll(list List);
 addressEvent newElementEvent(event info);
 void insertLastEvent(list &List, addressEvent E);
 void inputEvent(list &List, event &Event, addressEvent &E);
 addressEvent findEvent(list List, string namaEvent);
+int jumlahPeserta(addressEvent &E);
+void registrasiEvent(addressEvent &E);
+addressPeserta newElementPeserta(peserta info);
+void insertLastEvent(addressEvent &E, addressPeserta &P);
+void showDataPeserta(addressEvent E);
+void deleteFirstEvent(list &List);
+// void cariEventQuota(list List);
+
+
 
 int menu(list &List);
 
