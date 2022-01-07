@@ -1,6 +1,6 @@
 #include "event.h"
 #include "conio.h"
-#include <ctime>
+
 
 void createList(list &List) {
     List.first = NULL;
@@ -93,7 +93,6 @@ int jumlahPeserta(addressEvent &E) {
 void registrasiEvent(addressEvent &E) {
     peserta Peserta;
     addressPeserta P;
-    srand(time(0));
     char ulang = 'n';
     while (tolower(ulang) != 'y') {
         cin.ignore();
@@ -103,10 +102,10 @@ void registrasiEvent(addressEvent &E) {
         cout << "Jenis : "; cin >> Peserta.jenisPeserta;
 
         cout << "\n Data sudah benar (Y/N) : "; ulang = getche();
-        Peserta.noPeserta = (rand() % 10000);
-        Peserta.noTempatDuduk = (rand() % E->info.quota);
 
         if (ulang == 'y') {
+            Peserta.noPeserta = (rand() % 10000);
+            Peserta.noTempatDuduk = (rand() % E->info.quota) + 1;
             P = newElementPeserta(Peserta);
             insertLastEvent(E, P);
         }
@@ -137,12 +136,24 @@ void deleteFirstEvent(list &List) {
     }
 }
 
-// void cariEventQuota(list List) {
-//     addressEvent E = List.first;
-//     while (E != NULL) {
-
-//     }
-// }
+void cariEventQuota(list List) {
+    addressEvent E = List.first;
+    int i = 0;
+    while (E != NULL) {
+        if ((E->info.quota - jumlahPeserta(E)) > 0) {
+            cout << E->info.namaEvent << endl;
+            cout << E->info.jenisEvent << endl;
+            cout << E->info.tanggalEvent.tgl << " " << E->info.tanggalEvent.bulan << " " << E->info.tanggalEvent.tahun << endl;
+            cout << E->info.quota << endl;
+            cout << jumlahPeserta(E) << endl << endl;
+            i++;
+        }
+        E = E->next;
+    }
+    if (i == 0) {
+        cout << "Kosong " << endl;
+    }
+}
 
 addressPeserta newElementPeserta(peserta info) {
     addressPeserta P = new elementPeserta;
@@ -193,6 +204,9 @@ int menu(list &List) {
             break;
         case 4:
             deleteFirstEvent(List);
+            break;
+        case 5:
+            cariEventQuota(List);
             break;
     }
     return iMenu;
