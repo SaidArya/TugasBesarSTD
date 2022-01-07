@@ -42,14 +42,28 @@ void insertLastEvent(list &List, addressEvent E) {
     }
 }
 
-void inputEvent(list &List, event &Event, addressEvent &E) {
-    string namaEvent, bulanEvent, tempatEvent, jenisEvent;
+addressEvent findEvent(list List, string namaEvent) {
+    addressEvent P = List.first;
+    while (P != NULL) {
+        if (P->info.namaEvent == namaEvent) {
+            cout << "Found" << endl;
+            break;
+        }
+        P = P->next;
+    }
+    return P;
+}
+
+void inputEvent(list &List) {
+    event Event;
+    addressEvent E;
+    // string namaEvent, bulanEvent, tempatEvent, jenisEvent;
     char ulang = 'n';
-    int quotaEvent, tglEvent, tahunEvent;
+    // int quotaEvent, tglEvent, tahunEvent;
     // bool inputUlang = false;
     while (tolower(ulang) != 'y') {
-        // cin.ignore();
-        cout << "Nama Event    : "; getline(cin, Event.namaEvent);
+        cin.ignore();
+        cout << "\nNama Event    : "; getline(cin, Event.namaEvent);
         cout << "Jenis Event   : "; getline(cin, Event.jenisEvent);
         cout << "Tempat Event  : "; getline(cin, Event.tempatEvent);
         cout << "Tanggal Event : "; cin >> Event.tanggalEvent.tgl;
@@ -62,5 +76,31 @@ void inputEvent(list &List, event &Event, addressEvent &E) {
             E = newElementEvent(Event);
             insertLastEvent(List, E);
         }
-    }     
+    }
+    cout << endl;     
+}
+
+int menu(list &List) {
+    string namaEvent;
+    addressEvent E;
+    int iMenu = 0;
+    cin >> iMenu;
+    switch (iMenu) {
+        case 1:
+            inputEvent(List);
+            break;
+        case 2:
+            showDataEvent(List);
+            break;
+        case 3:
+            if (List.first == NULL) {
+                cout << "Kosong" << endl;
+            } else {
+                cin.ignore();
+                cout << "Nama Event : "; getline(cin, namaEvent);
+                E = findEvent(List, namaEvent);
+            }
+            break;
+    }
+    return iMenu;
 }

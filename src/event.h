@@ -40,6 +40,8 @@ void showDataEvent(list List);
 addressEvent newElementEvent(event info);
 void insertLastEvent(list &List, addressEvent E);
 void inputEvent(list &List, event &Event, addressEvent &E);
+addressEvent findEvent(list List, string namaEvent);
 
+int menu(list &List);
 
 #endif /* EVENT_H */
