@@ -3,9 +3,14 @@
 #include <iostream>
 using namespace std;
 
+
 typedef struct elementEvent *addressEvent;
 typedef struct elementPeserta *addressPeserta;
 
+struct tanggal {
+    int hari, tahun;
+    string bulan;
+};
 struct event {
     string namaEvent, jenisEvent;
     tanggal tanggalEvent;
@@ -24,14 +29,16 @@ struct elementPeserta {
     peserta info;
     addressPeserta next, prev;
 };
-struct tanggal {
-    int hari, tahun;
-    string bulan;
-};
+
+
 struct list {
     addressEvent first;
 };
 
-void createList(list &L);
+void createList(list &List);
+void showDataEvent(list List);
+addressEvent newElementEvent(event info);
+void insertLastEvent(list &List, addressEvent E);
+
 
 #endif /* EVENT_H */
