@@ -19,6 +19,7 @@ int main() {
 
 	eventAddress = newElementEvent(Event);
 	insertLastEvent(List, eventAddress);
+	inputEvent(List, Event, eventAddress);
 
 	showDataEvent(List);
 

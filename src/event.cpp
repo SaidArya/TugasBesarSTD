@@ -47,16 +47,20 @@ void inputEvent(list &List, event &Event, addressEvent &E) {
     char ulang = 'n';
     int quotaEvent, tglEvent, tahunEvent;
     // bool inputUlang = false;
-    cin.ignore();
     while (tolower(ulang) != 'y') {
-        cout << "Nama Event    : "; getline(cin, namaEvent);
-        cout << "Jenis Event   : "; getline(cin, jenisEvent);
-        cout << "Tempat Event  : "; getline(cin, tempatEvent);
-        cout << "Tanggal Event : "; cin >> tglEvent;
-        cout << "Bulan Event   : "; cin >> bulanEvent;
-        cout << "Tahun Event   : "; cin >> tahunEvent;
-        cout << "Quota Event   : "; cin >> quotaEvent;
+        // cin.ignore();
+        cout << "Nama Event    : "; getline(cin, Event.namaEvent);
+        cout << "Jenis Event   : "; getline(cin, Event.jenisEvent);
+        cout << "Tempat Event  : "; getline(cin, Event.tempatEvent);
+        cout << "Tanggal Event : "; cin >> Event.tanggalEvent.tgl;
+        cout << "Bulan Event   : "; cin >> Event.tanggalEvent.bulan;
+        cout << "Tahun Event   : "; cin >> Event.tanggalEvent.tahun;
+        cout << "Quota Event   : "; cin >> Event.quota;
         
         cout << "\n Data sudah benar (Y/N) : "; ulang = getche();
-    }   
+        if (ulang == 'y') {
+            E = newElementEvent(Event);
+            insertLastEvent(List, E);
+        }
+    }     
 }
