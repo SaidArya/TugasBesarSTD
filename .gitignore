@@ -6,3 +6,7 @@ TUGAS MULTI LINKED LIST 1 ke N.docx
 Tugas_besar_StrukturData_IF-44-08.docx
 .vscode/launch.json
 .vscode/tasks.json
+.vscode/settings.json
+output/main.exe
+src/event.o
+src/main.o
