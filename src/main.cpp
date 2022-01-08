@@ -12,6 +12,7 @@ int main() {
 		cout << "2. Tampilkan semua Event Beserta peserta" << endl;
 		cout << "3. Registrasi Event" << endl;
 		cout << "4. delete first Event" << endl;
+		cout << "5. Tampilkan event yang tersedia" << endl;
 		cout << "Input : "; selectMenu = menu(List);		
 	}
 
