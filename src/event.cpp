@@ -63,7 +63,6 @@ void inputEvent(list &List) {
     int maxTgl = 0;
     char ulang = 'n';
     while (tolower(ulang) != 'y') {
-        cin.ignore();
         cout << "\nNama Event    : "; getline(cin, Event.namaEvent);
         cout << "Jenis Event   : "; getline(cin, Event.jenisEvent);
         cout << "Tempat Event  : "; getline(cin, Event.tempatEvent);
@@ -122,7 +121,7 @@ void registrasiEvent(addressEvent &E) {
     srand(time(0));
     char ulang = 'n';
     while (tolower(ulang) != 'y') {
-        cin.ignore();
+        // cin.ignore(1000,'\n');
         cout << "Nama  : "; getline(cin, Peserta.namaPeserta);
         cout << "Email : "; cin >> Peserta.emailPeserta;
         cout << "No. HP: "; cin >> Peserta.noTelepon;
@@ -199,11 +198,30 @@ void showDataPeserta(addressEvent E) {
     }
 }
 
+void hapusPeserta(addressEvent &E, string nama) {
+    addressPeserta P = E->nextPeserta;
+    while (P != NULL) {
+        if (P->info.namaPeserta == nama) {
+            break;
+        }
+        P = P->next;
+    }
+    if (P == NULL) {
+        cout << "Data tidak ditemukan" << endl;
+    } else {
+        // E->nextPeserta = E->nextPeserta->next;
+        // E->nextPeserta->next->prev = NULL;
+        E->nextPeserta = NULL;
+    }
+}
+
 int menu(list &List) {
-    string namaEvent;
+    string namaEvent, namaPeserta;
     addressEvent E;
     int iMenu = 0;
     cin >> iMenu;
+    // cout << "Tekan Enter" << endl;
+    cin.ignore(1000, '\n');
     switch (iMenu) {
         case 1:
             inputEvent(List);
@@ -215,7 +233,6 @@ int menu(list &List) {
             if (List.first == NULL) {
                 cout << "Kosong" << endl;
             } else {
-                cin.ignore();
                 cout << "Nama Event : "; getline(cin, namaEvent);
                 E = findEvent(List, namaEvent);
                 if (E != NULL) {
@@ -230,6 +247,20 @@ int menu(list &List) {
             break;
         case 5:
             cariEventQuota(List);
+            break;
+        case 6:
+            if (List.first == NULL) {
+                cout << "Kosong" << endl;
+            } else {
+                cout << "Nama Event : "; getline(cin, namaEvent);
+                E = findEvent(List, namaEvent);
+                if (E != NULL) {
+                    cout << "Nama Peserta : "; getline(cin, namaPeserta);
+                    hapusPeserta(E, namaPeserta);
+                } else {
+                    cout << "Event tidak ditemukan" << endl;
+                } 
+            }  
             break;
     }
     return iMenu;

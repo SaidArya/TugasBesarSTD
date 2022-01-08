@@ -47,6 +47,7 @@ void insertLastEvent(addressEvent &E, addressPeserta &P);
 void showDataPeserta(addressEvent E);
 void deleteFirstEvent(list &List);
 void cariEventQuota(list List);
+void hapusPeserta(addressEvent &E);
 
 
 
