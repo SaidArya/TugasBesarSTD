@@ -60,15 +60,37 @@ addressEvent findEvent(list List, string namaEvent) {
 void inputEvent(list &List) {
     event Event;
     addressEvent E;
+    int maxTgl = 0;
     char ulang = 'n';
     while (tolower(ulang) != 'y') {
         cin.ignore();
         cout << "\nNama Event    : "; getline(cin, Event.namaEvent);
         cout << "Jenis Event   : "; getline(cin, Event.jenisEvent);
         cout << "Tempat Event  : "; getline(cin, Event.tempatEvent);
-        cout << "Tanggal Event : "; cin >> Event.tanggalEvent.tgl;
-        cout << "Bulan Event   : "; cin >> Event.tanggalEvent.bulan;
         cout << "Tahun Event   : "; cin >> Event.tanggalEvent.tahun;
+        cout << "Bulan Event   : "; cin >> Event.tanggalEvent.bulan;
+
+        while (Event.tanggalEvent.bulan < 1 || Event.tanggalEvent.bulan > 12) {
+            cout << "Input tidak valid" << endl;
+            cout << "Bulan Event   : "; cin >> Event.tanggalEvent.bulan;
+        }
+        if (Event.tanggalEvent.bulan == 1 || Event.tanggalEvent.bulan == 3 || Event.tanggalEvent.bulan == 5|| Event.tanggalEvent.bulan == 7
+        || Event.tanggalEvent.bulan == 8 || Event.tanggalEvent.bulan == 10 || Event.tanggalEvent.bulan == 12) {
+            maxTgl = 31;
+        } else if (Event.tanggalEvent.bulan == 4 || Event.tanggalEvent.bulan == 6 || Event.tanggalEvent.bulan == 9 || Event.tanggalEvent.bulan == 11) {
+            maxTgl = 30;
+        } else {
+            if ((Event.tanggalEvent.tahun % 4) == 0) {
+                maxTgl = 29;
+            } else {
+                maxTgl = 28;
+            }
+        }
+        cout << "Tanggal Event : "; cin >> Event.tanggalEvent.tgl;
+        while (Event.tanggalEvent.tgl < 1 ||Event.tanggalEvent.tgl > maxTgl) {
+            cout << "Input tidak valid" << endl;
+            cout << "Tanggal Event : "; cin >> Event.tanggalEvent.tgl;
+        }
         cout << "Quota Event   : "; cin >> Event.quota;
         
         cout << "\n Data sudah benar (Y/N) : "; ulang = getche();
@@ -137,12 +159,20 @@ void deleteFirstEvent(list &List) {
     }
 }
 
-// void cariEventQuota(list List) {
-//     addressEvent E = List.first;
-//     while (E != NULL) {
-
-//     }
-// }
+void cariEventQuota(list List) {
+    int i = 0;
+    addressEvent E = List.first;
+    while (E != NULL) {
+        if (jumlahPeserta(E) < E->info.quota) {
+            cout << "Nama Event" << E->info.namaEvent << endl;
+            i++;
+        }
+        E = E->next;
+    }
+    if (i == 0) {
+        cout << "Kosong" << endl;
+    }
+}
 
 addressPeserta newElementPeserta(peserta info) {
     addressPeserta P = new elementPeserta;
@@ -193,6 +223,9 @@ int menu(list &List) {
             break;
         case 4:
             deleteFirstEvent(List);
+            break;
+        case 5:
+            cariEventQuota(List);
             break;
     }
     return iMenu;
