@@ -1,8 +1,6 @@
 #ifndef EVENT_H
 #define EVENT_H
 #include <iostream>
-
-
 using namespace std;
 
 
@@ -49,7 +47,7 @@ addressPeserta newElementPeserta(peserta info);
 void insertLastEvent(addressEvent &E, addressPeserta &P);
 void showDataPeserta(addressEvent E);
 void deleteFirstEvent(list &List);
-void cariEventQuota(list List);
+// void cariEventQuota(list List);
 
 
 
