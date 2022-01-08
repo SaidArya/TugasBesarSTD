@@ -74,6 +74,7 @@ void inputEvent(list &List) {
             cout << "Input tidak valid" << endl;
             cout << "Bulan Event   : "; cin >> Event.tanggalEvent.bulan;
         }
+
         if (Event.tanggalEvent.bulan == 1 || Event.tanggalEvent.bulan == 3 || Event.tanggalEvent.bulan == 5|| Event.tanggalEvent.bulan == 7
         || Event.tanggalEvent.bulan == 8 || Event.tanggalEvent.bulan == 10 || Event.tanggalEvent.bulan == 12) {
             maxTgl = 31;
@@ -86,11 +87,14 @@ void inputEvent(list &List) {
                 maxTgl = 28;
             }
         }
+
         cout << "Tanggal Event : "; cin >> Event.tanggalEvent.tgl;
+
         while (Event.tanggalEvent.tgl < 1 ||Event.tanggalEvent.tgl > maxTgl) {
             cout << "Input tidak valid" << endl;
             cout << "Tanggal Event : "; cin >> Event.tanggalEvent.tgl;
         }
+        
         cout << "Quota Event   : "; cin >> Event.quota;
         
         cout << "\n Data sudah benar (Y/N) : "; ulang = getche();
