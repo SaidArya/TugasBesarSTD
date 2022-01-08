@@ -121,17 +121,16 @@ void registrasiEvent(addressEvent &E) {
     srand(time(0));
     char ulang = 'n';
     while (tolower(ulang) != 'y') {
-        // cin.ignore(1000,'\n');
         cout << "Nama  : "; getline(cin, Peserta.namaPeserta);
         cout << "Email : "; cin >> Peserta.emailPeserta;
         cout << "No. HP: "; cin >> Peserta.noTelepon;
         cout << "Jenis : "; cin >> Peserta.jenisPeserta;
 
         cout << "\n Data sudah benar (Y/N) : "; ulang = getche();
-        Peserta.noPeserta = (rand() % 10000);
-        Peserta.noTempatDuduk = (rand() % E->info.quota);
 
         if (ulang == 'y') {
+            Peserta.noPeserta = (rand() % 10000) + 1;
+            Peserta.noTempatDuduk = (rand() % E->info.quota) + 1;
             P = newElementPeserta(Peserta);
             insertLastEvent(E, P);
         }
