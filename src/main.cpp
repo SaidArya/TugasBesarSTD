@@ -1,9 +1,10 @@
 #include "event.h"
+#include <ctime>
 
 int main() {
 	list List;
 	int selectMenu = 0;
-
+	srand(time(0));
 	createList(List);
 	showDataEventAll(List);
 
