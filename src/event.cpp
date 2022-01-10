@@ -1,6 +1,6 @@
 #include "event.h"
 #include "conio.h"
-#include <ctime>
+
 
 void createList(list &List) {
     List.first = NULL;
@@ -49,7 +49,6 @@ addressEvent findEvent(list List, string namaEvent) {
     addressEvent P = List.first;
     while (P != NULL) {
         if (P->info.namaEvent == namaEvent) {
-            cout << "Found" << endl;
             break;
         }
         P = P->next;
@@ -63,6 +62,7 @@ void inputEvent(list &List) {
     int maxTgl = 0;
     char ulang = 'n';
     while (tolower(ulang) != 'y') {
+        cin.ignore(1000, '\n');
         cout << "\nNama Event    : "; getline(cin, Event.namaEvent);
         cout << "Jenis Event   : "; getline(cin, Event.jenisEvent);
         cout << "Tempat Event  : "; getline(cin, Event.tempatEvent);
@@ -101,6 +101,7 @@ void inputEvent(list &List) {
             E = newElementEvent(Event);
             insertLastEvent(List, E);
         }
+        
     }
     cout << endl;     
 }
@@ -118,9 +119,9 @@ int jumlahPeserta(addressEvent &E) {
 void registrasiEvent(addressEvent &E) {
     peserta Peserta;
     addressPeserta P;
-    srand(time(0));
     char ulang = 'n';
     while (tolower(ulang) != 'y') {
+        
         cout << "Nama  : "; getline(cin, Peserta.namaPeserta);
         cout << "Email : "; cin >> Peserta.emailPeserta;
         cout << "No. HP: "; cin >> Peserta.noTelepon;
@@ -134,6 +135,7 @@ void registrasiEvent(addressEvent &E) {
             P = newElementPeserta(Peserta);
             insertLastEvent(E, P);
         }
+        cin.ignore(1000, '\n');
     }
 }
 
@@ -197,6 +199,35 @@ void showDataPeserta(addressEvent E) {
     }
 }
 
+void hapusFirstPeserta(addressEvent &E) {
+    if (E->nextPeserta->next == NULL) {
+        E->nextPeserta = NULL;
+    } else {
+        E->nextPeserta = E->nextPeserta->next;
+        E->prev = NULL;
+    }
+}
+
+void hapusLastPeserta(addressEvent &E) {
+    addressPeserta P = E->nextPeserta;
+    while (P->next != NULL) {
+        P = P->next;
+    }
+    if (P->next == NULL) {
+        P = P->prev;
+        P->next = NULL;
+    } else {
+        E->nextPeserta = NULL;
+    }
+}
+
+void hapusAfterPeserta(addressEvent &E, addressPeserta prec, addressPeserta P) {
+    prec->next = P->next;
+    P->next->prev = prec;
+    P->next = NULL;
+    P->prev = NULL;
+}
+
 void hapusPeserta(addressEvent &E, string nama) {
     addressPeserta P = E->nextPeserta;
     while (P != NULL) {
@@ -208,9 +239,14 @@ void hapusPeserta(addressEvent &E, string nama) {
     if (P == NULL) {
         cout << "Data tidak ditemukan" << endl;
     } else {
-        // E->nextPeserta = E->nextPeserta->next;
-        // E->nextPeserta->next->prev = NULL;
-        E->nextPeserta = NULL;
+        if (P == E->nextPeserta) {
+            hapusFirstPeserta(E);
+        } else if (P->next == NULL) {
+            hapusLastPeserta(E);
+        } else {
+            addressPeserta prec = P->prev;
+            hapusAfterPeserta(E, prec, P);
+        }
     }
 }
 
@@ -219,8 +255,7 @@ int menu(list &List) {
     addressEvent E;
     int iMenu = 0;
     cin >> iMenu;
-    // cout << "Tekan Enter" << endl;
-    cin.ignore(1000, '\n');
+    
     switch (iMenu) {
         case 1:
             inputEvent(List);
@@ -232,6 +267,7 @@ int menu(list &List) {
             if (List.first == NULL) {
                 cout << "Kosong" << endl;
             } else {
+                cin.ignore(1000, '\n');
                 cout << "Nama Event : "; getline(cin, namaEvent);
                 E = findEvent(List, namaEvent);
                 if (E != NULL) {
@@ -248,6 +284,7 @@ int menu(list &List) {
             cariEventQuota(List);
             break;
         case 6:
+            cin.ignore(1000, '\n');
             if (List.first == NULL) {
                 cout << "Kosong" << endl;
             } else {
