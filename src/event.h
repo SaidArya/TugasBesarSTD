@@ -47,8 +47,10 @@ void insertLastEvent(addressEvent &E, addressPeserta &P);
 void showDataPeserta(addressEvent E);
 void deleteFirstEvent(list &List);
 void cariEventQuota(list List);
-
-
+void hapusPeserta(addressEvent &E);
+void hapusFirstPeserta(addressEvent &E);
+void hapusLastPeserta(addressEvent &E);
+void hapusAfterPeserta(addressEvent &E, addressPeserta prec, addressPeserta P);
 
 int menu(list &List);
 

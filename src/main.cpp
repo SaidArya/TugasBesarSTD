@@ -1,9 +1,10 @@
 #include "event.h"
+#include <ctime>
 
 int main() {
 	list List;
 	int selectMenu = 0;
-
+	srand(time(0));
 	createList(List);
 	showDataEventAll(List);
 
@@ -13,8 +14,8 @@ int main() {
 		cout << "3. Registrasi Event" << endl;
 		cout << "4. delete first Event" << endl;
 		cout << "5. Tampilkan event yang tersedia" << endl;
+		cout << "6. Hapus peserta" << endl;
 		cout << "Input : "; selectMenu = menu(List);		
 	}
-
 	return 0;
 }
